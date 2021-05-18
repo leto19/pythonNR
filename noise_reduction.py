@@ -1,5 +1,5 @@
 import numpy as np
-from . algorithm import algorithm
+from algorithm import algorithm
 import soundfile as sf
 
 def noise_reduction(in_file,out_file):
@@ -18,7 +18,7 @@ def noise_reduction(in_file,out_file):
     # gamma = 1
     # nu = 0.6
     # g_dft, g_mag, g_mag2 = tabulate_gain_functions(gamma, nu)
-    g_mag = np.load("auto_speech_recognition/noise_reduction/gain.npy")
+    g_mag = np.load("gain.npy")
     parameters['g_mag'] = g_mag
     shat = algorithm(y, parameters)
     #shat = float2pcm(shat)

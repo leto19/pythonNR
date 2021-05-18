@@ -1,8 +1,8 @@
 import numpy as np
 import math
-from . estimate_snrs import estimate_snrs
-from  . init_noise_tracker_ideal_vad import init_noise_tracker_ideal_vad
-from . lookup_gains_in_table import lookup_gain_in_table
+from estimate_snrs import estimate_snrs
+from   init_noise_tracker_ideal_vad import init_noise_tracker_ideal_vad
+from  lookup_gains_in_table import lookup_gain_in_table
 
 def algorithm(noisy, parameters):
     # where noisy is an ndarray of audio and parameters is a dictionary
