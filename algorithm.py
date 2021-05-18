@@ -65,11 +65,19 @@ def algorithm(noisy, parameters):
             noisyPer, fft_size, noise_psd, SNR_LOW_LIM, ALPHA, indFr, clean_est_dft_frame_p)
         gain = lookup_gain_in_table(
             g_mag, a_post_snr, a_priori_snr, np.arange(-40, 51, 1), np.arange(-40, 51, 1), 1)
-
+        print(gain)
         gain = np.maximum(gain, MIN_GAIN)
+        print(np.floor(fft_size/2))
         clean_est_dft_frame = gain*noisyDftFrame[0:int(fft_size/2)+1]
-        clean_conj_flip = np.flipud(np.conj(clean_est_dft_frame[1:-1]))
+        if parameters['fs'] != 16000:
+            clean_conj_flip = np.flipud(np.conj(clean_est_dft_frame[1:]))
+        else:
+            clean_conj_flip = np.flipud(np.conj(clean_est_dft_frame[1:-1]))
+
+        print(len(clean_est_dft_frame))
+        print(len(clean_conj_flip))
         to_concat = np.concatenate((clean_est_dft_frame,clean_conj_flip))
+        print(len(synWin),len(np.fft.ifft(to_concat)))
         shat[indices] = shat[indices] + synWin * np.real(np.fft.ifft(to_concat))
 
     return shat
